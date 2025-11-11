@@ -17,8 +17,8 @@ class MotionManager: ObservableObject {
     // MARK: - Inizializzazione
 
     // Inizializza il MotionManager e avvia la lettura dei sensori
-    // - Parameter updateInterval: intervallo di aggiornamento in secondi (default 0.1s)
-    init(updateInterval: TimeInterval = 0.1) {
+    // updateInterval è l'intervallo di aggiornamento in secondi
+    init(updateInterval: TimeInterval = 0.05) {
         // Imposta la frequenza di aggiornamento dei dati dal sensore
         motionManager.deviceMotionUpdateInterval = updateInterval
 

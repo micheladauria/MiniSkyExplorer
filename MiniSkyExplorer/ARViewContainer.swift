@@ -6,39 +6,30 @@ import SwiftUI
 // ARView è una UIView, quindi si usa questo protocollo per integrarla.
 struct ARViewContainer: UIViewRepresentable {
 
-    // MARK: - Set di stelle “finte” per la demo
-    let stars = [
-        Star(name: "Sirius", position: [0, 0, -1.0]),
-        Star(name: "Betelgeuse", position: [0.3, 0.2, -1.2]),
-        Star(name: "Rigel", position: [-0.4, -0.1, -1.3]),
-        Star(name: "Vega", position: [0.1, 0.4, -1.5]),
-        Star(name: "Polaris", position: [0, 0.5, -2.0]),
-    ]
+    // Collegamento al gestore delle stelle
+    @ObservedObject var starManager: StarManager
 
     // MARK: - Configurazione ARView
     func makeUIView(context: Context) -> ARView {
         // Crea la vista ARView, che gestisce rendering + fotocamera
         let arView = ARView(frame: .zero)
 
-        // Configura la sessione di tracciamento
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.worldAlignment = .gravityAndHeading
+        // Configura e avvia la sessione di tracciamento
+        let config = ARWorldTrackingConfiguration()
+        config.worldAlignment = .gravityAndHeading
+        arView.session.run(config)
         // .gravity allinea la scena alla gravità (verticale)
         // .heading orienta rispetto al Nord magnetico
-
-        // Avvia la sessione AR con questa configurazione
-        arView.session.run(configuration)
 
         // Crea un "ancoraggio" nello spazio (punto fisso nella scena AR con coordinate 0,0,0)
         let anchor = AnchorEntity(world: .zero)
 
-        // Per ogni stella, crea una piccola sfera luminosa
-        for star in stars {
-            // Crea una forma 3D con ModelEntity(mesh:)
+        // MARK: - Stella 3D
+        // Per ogni stella, crea una forma 3D con ModelEntity(mesh:)
+        for star in starManager.stars {
             let sphere = ModelEntity(mesh: .generateSphere(radius: 0.03))
+            let starMaterial = UnlitMaterial(color: .white)  // UnlitMaterial rende la stella auto-illuminante
 
-            // Usa UnlitMaterial per rendere la stella auto-illuminante
-            let starMaterial = UnlitMaterial(color: .white)
             sphere.model?.materials = [starMaterial]
 
             // Imposta la posizione nello spazio 3D (in metri)
@@ -52,6 +43,7 @@ struct ARViewContainer: UIViewRepresentable {
             // Aggiungi la sfera all'ancora
             anchor.addChild(sphere)
 
+            // MARK: - Nome stella
             // Genera testo 3D per mostrare il nome della stella
             let textMesh = MeshResource.generateText(
                 star.name,
@@ -62,9 +54,14 @@ struct ARViewContainer: UIViewRepresentable {
                 lineBreakMode: .byWordWrapping
             )
 
+            // Materiale nome
             let textEntity = ModelEntity(
                 mesh: textMesh,
-                materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
+                materials: [
+                    UnlitMaterial(
+                        color: .black
+                    )
+                ]
             )
 
             // Posiziona il nome leggermente sopra la stella
@@ -77,10 +74,15 @@ struct ARViewContainer: UIViewRepresentable {
             // Riduci la scala per evitare che sia troppo grande
             textEntity.scale = [0.5, 0.5, 0.5]
 
+            // Billboard: il testo guarda sempre la fotocamera
+            textEntity.components[BillboardComponent.self] =
+                BillboardComponent()
+
             // Aggiungi il testo all'ancora
             anchor.addChild(textEntity)
         }
 
+        // MARK: -
         // Aggiungi l'ancora alla scena AR
         arView.scene.addAnchor(anchor)
 

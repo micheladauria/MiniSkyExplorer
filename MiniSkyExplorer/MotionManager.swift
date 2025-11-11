@@ -35,17 +35,14 @@ class MotionManager: ObservableObject {
         }
     }
 
-    // MARK: - Stop
+    // MARK: - Stop (ferma la raccolta dei dati dal sensore per ottimizzare la batteria)
 
-    // Ferma la raccolta dei dati dal sensore per ottimizzare la batteria
     func stopUpdates() {
         motionManager.stopDeviceMotionUpdates()
     }
 
-    // MARK: - Deinitializer
+    // MARK: - Deinitializer (Ferma automaticamente i sensori quando l'oggetto viene deallocato per ottimizzare la batteria)
 
-    // Ferma automaticamente i sensori quando l'oggetto viene deallocato
-    // Evita consumi di batteria inutili
     deinit {
         motionManager.stopDeviceMotionUpdates()
         print("MotionManager deallocato: sensori fermati.")

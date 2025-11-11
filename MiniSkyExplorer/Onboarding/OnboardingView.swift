@@ -31,7 +31,6 @@ struct OnboardingView: View {
                     Text("Explore the Universe")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .fontDesign(.rounded)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 25)

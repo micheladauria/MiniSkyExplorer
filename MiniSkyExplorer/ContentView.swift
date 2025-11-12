@@ -15,10 +15,6 @@ struct ContentView: View {
             ARViewContainer(starManager: starManager)
                 .ignoresSafeArea(.all, edges: .all)
 
-            //Overlay 2D SwiftUI con etichette delle stelle
-            StarOverlayView(starManager: starManager)
-                .ignoresSafeArea(.all)
-
                 .navigationBarBackButtonHidden(true)
         }
     }

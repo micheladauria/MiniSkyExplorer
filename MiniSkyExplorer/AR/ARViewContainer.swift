@@ -14,12 +14,10 @@ struct ARViewContainer: UIViewRepresentable {
         // Crea la vista ARView, che gestisce rendering + fotocamera
         let arView = ARView(frame: .zero)
 
-        // Configura e avvia la sessione di tracciamento
-        let config = ARWorldTrackingConfiguration()
-        config.worldAlignment = .gravityAndHeading
-        arView.session.run(config)
-        // .gravity allinea la scena alla gravità (verticale)
-        // .heading orienta rispetto al Nord magnetico
+        // Configurazione sessione AR
+        let config = ARWorldTrackingConfiguration()  // Configurazione per tracking del mondo reale
+        config.worldAlignment = .gravityAndHeading  // Allinea il mondo virtuale con la gravità reale e il Nord magnetico (Heading)
+        arView.session.run(config)  // Avvia la sessione AR con la configurazione scelta
 
         // Crea un "ancoraggio" nello spazio (punto fisso nella scena AR con coordinate 0,0,0)
         let anchor = AnchorEntity(world: .zero)

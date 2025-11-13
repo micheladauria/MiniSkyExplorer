@@ -20,7 +20,7 @@ struct ContentView: View {
                     .navigationBarBackButtonHidden(true)
             } else {
                 // Vista panoramica
-                ARPanoramaView(imageName: "panoramaview")
+                ARPanoramaView(imageName: "Milkyway")
                     .ignoresSafeArea(.all)
             }
 
@@ -41,7 +41,7 @@ struct ContentView: View {
                                     : "globe.europe.africa.fill"
                             )
                             .font(.headline)
-                            Text(showARView ? "Panorama View" : "AR View")
+                            Text(showARView ? "Galaxy View" : "Camera View")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                         }

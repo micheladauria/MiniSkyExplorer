@@ -3,13 +3,12 @@ import SwiftUI
 
 // struct che rappresenta una vista SwiftUI che integra ARKit
 struct ARPanoramaView: UIViewRepresentable {
-    var imageName: String  // Nome dell'immagine da caricare
+    var imageName: String  // Nome dell'immagine in assets
 
     // Funzione richiesta da UIViewRepresentable per creare la vista UIKit
     func makeUIView(context: Context) -> ARSCNView {
         let sceneView = ARSCNView()  // Vista ARSCNView, che combina ARKit e SceneKit
         sceneView.automaticallyUpdatesLighting = true  // Aggiorna automaticamente l'illuminazione della scena
-        sceneView.backgroundColor = .black  // Sfondo nero per evitare problemi di rendering
 
         // Configurazione sessione AR
         let configuration = ARWorldTrackingConfiguration()  // Configurazione per tracking del mondo reale
@@ -22,12 +21,7 @@ struct ARPanoramaView: UIViewRepresentable {
         // Sfera panoramica 360°
         let sphere = SCNSphere(radius: 10)  // Raggio 10 unità SceneKit
         sphere.firstMaterial?.isDoubleSided = true  // La texture è visibile anche dall'interno della sfera
-        sphere.firstMaterial?.diffuse.contents = UIImage(named: imageName)  // Imposta l'immagine panoramica come texture
-        sphere.firstMaterial?.diffuse.contentsTransform = SCNMatrix4MakeScale(
-            -1,  // Rovescia orizzontalmente l'immagine per la visualizzazione interna
-            1,
-            1
-        )
+        sphere.firstMaterial?.diffuse.contents = UIImage(named: imageName)  // Imposta l'immagine come texture
 
         let sphereNode = SCNNode(geometry: sphere)  // Nodo con la geometria della sfera
         scene.rootNode.addChildNode(sphereNode)  // Aggiunge il nodo della sfera al nodo radice della scena

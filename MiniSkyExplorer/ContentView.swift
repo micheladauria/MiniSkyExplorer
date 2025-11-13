@@ -20,7 +20,7 @@ struct ContentView: View {
                     .navigationBarBackButtonHidden(true)
             } else {
                 // Vista panoramica
-                ARPanoramaView(imageName: "Milkyway")
+                ARPanoramaView(imageName: "aaa")
                     .ignoresSafeArea(.all)
             }
 

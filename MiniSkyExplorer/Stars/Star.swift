@@ -12,5 +12,5 @@ struct Star: Identifiable, Equatable {
 /*
  X → destra/sinistra
  Y → su/giù
- Z → avanti/indietro (negativo = “davanti” alla fotocamera)
+ Z → avanti/indietro
  */

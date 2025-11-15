@@ -17,9 +17,7 @@ Point your device at the sky to visualize stars, planets, and celestial bodies, 
 
 | Onboarding                                               | AR Camera Mode                                   | Galaxy Panorama Mode                                 |                                 
 | -------------------------------------------------------- | ------------------------------------------------ | ---------------------------------------------------- |
-| ![Screenshot 1](readme_assets/Screenshot1.jpeg) | ![Screenshot 2](readme_assets/screenshot_ar.png) | ![Screenshot 3](readme_assets/screenshot_galaxy.png) |
-
-> screenshots are stored inside `readme_assets/`.
+| ![Screenshot 1](<img src="readme_assets/screenshot1.png" width="400">) | ![Screenshot 2](readme_assets/screenshot_ar.png) | ![Screenshot 3](readme_assets/screenshot_galaxy.png) |
 
 ---
 

@@ -7,8 +7,6 @@ struct StarEntityModel {
     static func makeStarSphere(for star: Star) -> ModelEntity {
         let starSphere = ModelEntity(mesh: .generateSphere(radius: 0.03))  // raggio 3cm
 
-        // Materiale Unlit non illuminato: colore fisso (ignora la luce della scena), la stella brilla sempre uguale
-        let unlitMaterial = UnlitMaterial(color: .yellow)
         // SimpleMaterial (illuminato dalla scena)
         starSphere.model?.materials = [
             SimpleMaterial(color: .yellow, isMetallic: false)

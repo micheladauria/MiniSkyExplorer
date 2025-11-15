@@ -13,16 +13,13 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            // Mostra la fotocamera se showARView è true
-            if showARView {
-                ARViewContainer(starManager: starManager)
-                    .ignoresSafeArea(.all, edges: .all)
-                    .navigationBarBackButtonHidden(true)
-            } else {
-                // Altrimenti mostra una vista panoramica
-                ARPanoramaView(imageName: "aaa")
-                    .ignoresSafeArea(.all)
-            }
+            // ARViewContainer gestisce sia camera che panorama
+            ARViewContainer(
+                starManager: starManager,
+                showCamera: showARView
+            )
+            .ignoresSafeArea(.all, edges: .all)
+            .navigationBarBackButtonHidden(true)
 
             // Pulsante per cambiare vista
             VStack {

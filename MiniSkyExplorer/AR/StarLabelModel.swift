@@ -18,7 +18,7 @@ struct StarLabelModel {
         // Crea un ModelEntity usando il mesh appena creato
         let textEntity = ModelEntity(
             mesh: textMesh,
-            materials: [UnlitMaterial(color: .black)]
+            materials: [UnlitMaterial(color: .white)]
         )
 
         // Posiziona il testo nella scena 3D sopra la stella

@@ -1,38 +1,39 @@
 import ARKit
 import SwiftUI
 
-// struct che rappresenta una vista SwiftUI che integra ARKit
 struct ARPanoramaView: UIViewRepresentable {
-    var imageName: String  // Nome dell'immagine in assets
+    var imageName: String  // Nome dell'immagine in assets da usare come texture
 
-    // Funzione richiesta da UIViewRepresentable per creare la vista UIKit
+    // Crea la ARSCNView la prima volta che la vista SwiftUI compare
     func makeUIView(context: Context) -> ARSCNView {
         let sceneView = ARSCNView()  // Vista ARSCNView, che combina ARKit e SceneKit
-        sceneView.automaticallyUpdatesLighting = true  // Aggiorna automaticamente l'illuminazione della scena
+        sceneView.automaticallyUpdatesLighting = true  // Attiva il lighting automatico: ARKit adatta le luci in base all'ambiente reale
 
         // Configurazione sessione AR
-        let configuration = ARWorldTrackingConfiguration()  // Configurazione per tracking del mondo reale
-        configuration.worldAlignment = .gravity  // Allinea il mondo virtuale con la gravità reale
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.worldAlignment = .gravity  // Allinea la scena al vettore di gravità
         sceneView.session.run(configuration)  // Avvia la sessione AR con la configurazione scelta
 
-        // Scena vuota
+        // Scena SceneKit vuota che conterrà la sfera panoramica
         let scene = SCNScene()
 
         // Sfera panoramica 360°
-        let sphere = SCNSphere(radius: 10)  // Raggio 10 unità SceneKit
-        sphere.firstMaterial?.isDoubleSided = true  // La texture è visibile anche dall'interno della sfera
+        let sphere = SCNSphere(radius: 10)  // Raggio grande così l'utente è "dentro" al panorama
+        sphere.firstMaterial?.isDoubleSided = true  // Imposta il materiale della sfera. Permette di vedere l’immagine anche dall’interno (SceneKit di solito mostra un solo lato)
         sphere.firstMaterial?.diffuse.contents = UIImage(named: imageName)  // Imposta l'immagine come texture
 
-        let sphereNode = SCNNode(geometry: sphere)  // Nodo con la geometria della sfera
-        scene.rootNode.addChildNode(sphereNode)  // Aggiunge il nodo della sfera al nodo radice della scena
+        let sphereNode = SCNNode(geometry: sphere)  // Nodo SceneKit che contiene la sfera
+        scene.rootNode.addChildNode(sphereNode)  // Aggiunge il nodo della sfera al nodo della scena
+        // L’utente sarà al centro della sfera, quindi vedrà il panorama intorno a sé
 
         sceneView.scene = scene  // Assegna la scena creata alla vista AR
 
-        return sceneView  // Ritorna la vista AR configurata
+        return sceneView  // Restituisce la vista AR configurata
     }
 
-    // Funzione richiesta da UIViewRepresentable per aggiornare la vista
+    // MARK: -
+    // updateUIView viene chiamato quando SwiftUI aggiorna la view,
+    // ma qui non serve perché il panorama non cambia dinamicamente
     func updateUIView(_ uiView: ARSCNView, context: Context) {
-        // Non fa nulla qui perché la scena è statica
     }
 }

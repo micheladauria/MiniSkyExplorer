@@ -3,23 +3,21 @@ import SwiftUI
 
 struct StarEntityModel {
 
+    // Funzione che crea una sfera (ModelEntity) che rappresenta una stella
     static func makeStarSphere(for star: Star) -> ModelEntity {
-        // Creazione della sfera che rappresenta la stella
-        let starSphere = ModelEntity(mesh: .generateSphere(radius: 0.03))
-        
-        // Materiale Unlit per effetto retroilluminato
-        let unlitMaterial = UnlitMaterial(color: .yellow)
-        starSphere.model?.materials = [unlitMaterial]
-        
-        // Posizionamento della sfera nella scena
-        starSphere.position = star.position
+        let starSphere = ModelEntity(mesh: .generateSphere(radius: 0.03))  // raggio 3cm
 
-        // Componente di emissione al SimpleMaterial per un effetto più marcato
+        // Materiale Unlit non illuminato: colore fisso (ignora la luce della scena), la stella brilla sempre uguale
+        let unlitMaterial = UnlitMaterial(color: .yellow)
+        // SimpleMaterial (illuminato dalla scena)
         starSphere.model?.materials = [
             SimpleMaterial(color: .yellow, isMetallic: false)
         ]
 
-        // Restituisce la stella completa
+        // Posiziona la sfera nella scena
+        starSphere.position = star.position
+
+        // Restituisce la sfera configurata
         return starSphere
     }
 }

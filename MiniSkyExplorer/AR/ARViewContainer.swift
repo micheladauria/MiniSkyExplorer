@@ -1,49 +1,51 @@
-import ARKit  // Fornisce il tracking del mondo reale
+import ARKit  // Framework per la realtà aumentata: tracking, riconoscimento, ecc.
 import RealityKit  // Gestisce le scene 3D e la fotocamera AR
 import SwiftUI
 
-// UIViewRepresentable serve per "tradurre" una UIView in SwiftUI.
-// ARView è una UIView, quindi si usa questo protocollo per integrarla.
+// UIViewRepresentable permette di usare una UIView (ARView) dentro SwiftUI
 struct ARViewContainer: UIViewRepresentable {
 
-    // Collegamento al gestore delle stelle
+    // StarManager è un ObservableObject che contiene la lista delle stelle da visualizzare
     @ObservedObject var starManager: StarManager
 
     // MARK: - Configurazione ARView
+
+    // Crea l’ARView la prima volta che la view SwiftUI appare
     func makeUIView(context: Context) -> ARView {
-        // Crea la vista ARView, che gestisce rendering + fotocamera
+        // Crea una ARView con frame zero (lo gestisce poi SwiftUI)
         let arView = ARView(frame: .zero)
 
-        // Configurazione sessione AR
-        let config = ARWorldTrackingConfiguration()  // Configurazione per tracking del mondo reale
-        config.worldAlignment = .gravityAndHeading  // Allinea il mondo virtuale con la gravità reale e il Nord magnetico (Heading)
+        // Configurazione del tracking della scena AR
+        let config = ARWorldTrackingConfiguration()
+        config.worldAlignment = .gravityAndHeading  // Allinea la scena al mondo reale usando gravità (verticale) e bussola (nord)
+
         arView.session.run(config)  // Avvia la sessione AR con la configurazione scelta
 
-        // Crea un "ancoraggio" nello spazio (punto fisso nella scena AR con coordinate 0,0,0)
+        // Crea un "ancoraggio" nel mondo reale (posizione 0,0,0)
+        // L’anchor è un punto fisso nello spazio AR al quale si attaccano le entità 3D
         let anchor = AnchorEntity(world: .zero)
 
         // MARK: - Stella 3D e Nome
-        // Per ogni stella, crea la sfera e il testo usando i model
+        // Per ogni stella, crea la sfera 3D e il testo usando i model
         for star in starManager.stars {
-            // Crea la sfera della stella
-            let sphere = StarEntityModel.makeStarSphere(for: star)
-            anchor.addChild(sphere)
+            let sphere = StarEntityModel.makeStarSphere(for: star)  // Crea la stella 3D
+            anchor.addChild(sphere)  // Aggiunge la sfera all’anchor
 
-            // Crea il testo con il nome della stella
-            let textEntity = StarLabelModel.makeLabel(for: star)
-            anchor.addChild(textEntity)
+            let textEntity = StarLabelModel.makeLabel(for: star)  // Crea il testo 3D con il nome della stella
+            anchor.addChild(textEntity)  // Aggiunge il testo all’anchor
         }
 
         // MARK: -
-        // Aggiungi l'ancora alla scena AR
+        // Aggiunge l’anchor alla scena AR
         arView.scene.addAnchor(anchor)
 
+        // Restituisce l'ARView che SwiftUI mostrerà sullo schermo
         return arView
     }
 
-    // MARK: - Aggiorna la vista quando SwiftUI ricalcola il layout
+    // MARK: -
+    // updateUIView viene chiamato quando SwiftUI aggiorna la view,
+    // ma qui non serve fare nulla perché la scena non cambia dinamicamente (per future implementazioni)
     func updateUIView(_ uiView: ARView, context: Context) {
-        // Nessun aggiornamento dinamico per ora
-        // Serve per aggiungere nuovi oggetti AR in futuro
     }
 }

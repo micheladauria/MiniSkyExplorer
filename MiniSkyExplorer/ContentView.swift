@@ -3,35 +3,35 @@ import SwiftUI
 
 struct ContentView: View {
 
-    // @StateObject crea un’istanza OSSERVABILE di MotionManager.
-    //Ogni volta che attitude in MotionManager cambia, la vista si aggiorna automaticamente
+    // @StateObject crea un’istanza OSSERVABILE di MotionManager
+    // MotionManager gestisce i dati del sensore del dispositivo
     @StateObject private var motion = MotionManager()
-    // Istanza condivisa del gestore delle stelle
+    // StarManager contiene tutte le stelle e permette di aggiornarle dinamicamente
     @StateObject private var starManager = StarManager()
-    // Variabile di stato per il passaggio tra fotocamera e panorama
+    // Stato che controlla il passaggio tra fotocamera e panorama
     @State private var showARView = true
 
     var body: some View {
         ZStack {
+            // Mostra la fotocamera se showARView è true
             if showARView {
-                // ARViewContainer() è la fotocamera con AR
                 ARViewContainer(starManager: starManager)
                     .ignoresSafeArea(.all, edges: .all)
                     .navigationBarBackButtonHidden(true)
             } else {
-                // Vista panoramica
+                // Altrimenti mostra una vista panoramica
                 ARPanoramaView(imageName: "aaa")
                     .ignoresSafeArea(.all)
             }
 
             // Pulsante per cambiare vista
             VStack {
-                Spacer()
+                Spacer()  // Spinge il pulsante verso il basso
                 HStack {
-                    Spacer()
+                    Spacer()  // Spinge il pulsante verso destra
                     Button(action: {
                         withAnimation(.easeInOut) {
-                            showARView.toggle()
+                            showARView.toggle()  // Alterna tra camera e panorama
                         }
                     }) {
                         HStack(spacing: 8) {

@@ -1,8 +1,8 @@
 import Foundation
 import SwiftUI
-import simd  // Libreria per gestire vettori 3D (SIMD3<Float>)
+import simd  // Libreria per gestire vettori 3D (SIMD3<Float>) (SIMD = Single Instruction Multiple Data)
 
-// Rappresenta una singola stella nel cielo AR
+// Struttura che rappresenta una stella
 struct Star: Identifiable, Equatable {
     let id = UUID()  // Ogni stella ha un ID univoco
     let name: String  // Nome della stella

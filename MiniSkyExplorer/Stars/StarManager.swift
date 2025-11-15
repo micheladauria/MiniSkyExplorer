@@ -6,7 +6,7 @@ class StarManager: ObservableObject {
     @Published var stars: [Star] = []
 
     init() {
-        // Lista originale delle stelle con posizioni
+        // Array di stelle con posizioni
         stars = [
             Star(name: "Sun", position: [0, 0.6, 0]),
             Star(name: "Mercury", position: [0.4, 0.0, -0.2]),

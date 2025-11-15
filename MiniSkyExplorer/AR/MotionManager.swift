@@ -2,16 +2,15 @@ import Combine  // Necessario per ObservableObject e @Published
 import CoreMotion  // Framework per leggere accelerometri e giroscopi
 import Foundation
 
-// MotionManager gestisce i dati del sensore di movimento e aggiorna la UI in tempo reale
+// MotionManager è un ObservableObject: SwiftUI può osservarlo e aggiornare la UI automaticamente
 class MotionManager: ObservableObject {
 
     // MARK: - Proprietà
 
-    // Oggetto principale per leggere dati dai sensori di movimento
+    // CMMotionManager gestisce l’accesso ai sensori di movimento del dispositivo
     private var motionManager = CMMotionManager()
 
-    // Contiene l'orientamento attuale del dispositivo (roll, pitch, yaw)
-    // L'annotazione @Published permette alle view SwiftUI di aggiornarsi automaticamente quando cambia
+    // @Published permette di notificare automaticamente la UI ogni volta che cambia il valore
     @Published var attitude: CMAttitude?
 
     // MARK: - Inizializzazione
@@ -22,8 +21,8 @@ class MotionManager: ObservableObject {
         // Imposta la frequenza di aggiornamento dei dati dal sensore
         motionManager.deviceMotionUpdateInterval = updateInterval
 
-        // Avvia la raccolta dei dati di movimento sul thread principale
-        // La closure viene chiamata ogni volta che arrivano nuovi dati
+        // Avvio dei sensori: riceviamo CMAttitude, accelerazione, rotazione ecc.
+        // Li riceviamo sul thread principale (.main), utile se la UI deve aggiornarsi
         motionManager.startDeviceMotionUpdates(to: .main) {
             [weak self] motionData, error in
             // Controlla che i dati siano validi
@@ -35,27 +34,16 @@ class MotionManager: ObservableObject {
         }
     }
 
-    // MARK: - Stop (ferma la raccolta dei dati dal sensore per ottimizzare la batteria)
-
+    // MARK: - Stop
+    // Ferma la raccolta dei dati dal sensore per ottimizzare la batteria
     func stopUpdates() {
         motionManager.stopDeviceMotionUpdates()
     }
 
-    // MARK: - Deinitializer (Ferma automaticamente i sensori quando l'oggetto viene deallocato per ottimizzare la batteria)
-
+    // MARK: - Deinitializer
+    // Deinit viene chiamato quando l’istanza viene distrutta
+    // Ferma gli aggiornamenti per evitare memory leak o uso inutile della batteria
     deinit {
         motionManager.stopDeviceMotionUpdates()
-        print("MotionManager deallocato: sensori fermati.")
     }
 }
-
-/*
- Spiegazione
- CMMotionManager: gestisce tutti i sensori (accelerometro, giroscopio, magnetometro).
- deviceMotionUpdateInterval: ogni quanto ricevi un nuovo valore.
- startDeviceMotionUpdates: avvia la raccolta dati.
- attitude: contiene tre valori fondamentali:
- pitch → inclinazione (su/giù)
- roll → rotazione laterale
- yaw → rotazione orizzontale, cioè dove stai “puntando”
- */

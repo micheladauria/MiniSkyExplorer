@@ -1,8 +1,7 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
-    @State private var goToMain = false
+    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false  // Salva in AppStorage se l’utente ha già visto l’onboarding
 
     var body: some View {
         NavigationStack {
@@ -63,16 +62,18 @@ struct OnboardingView: View {
                             )
                             .padding(.horizontal, 32)
                     }
-                    
+
                     // salva che l’onboarding è completato
-                    .simultaneousGesture(TapGesture().onEnded {
-                        hasSeenOnboarding = true
-                    })
+                    .simultaneousGesture(
+                        TapGesture().onEnded {
+                            hasSeenOnboarding = true
+                        }
+                    )
 
                     Spacer().frame(height: 40)
                 }
             }
-            
+
             // definisce la destinazione
             .navigationDestination(for: String.self) { value in
                 if value == "main" {

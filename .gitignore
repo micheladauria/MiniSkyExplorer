@@ -3,16 +3,50 @@ DerivedData/
 xcuserdata/
 *.xcscmblueprint
 *.xccheckout
+*.xcuserdatad
+*.xcworkspace/xcuserdata/
 
 # Swift Package Manager
 .build/
 Packages/
+.swiftpm/
+Package.resolved
 
 # CocoaPods
 Pods/
+Podfile.lock
 
 # Carthage
 Carthage/
+Carthage/Build/
 
 # General
 .DS_Store
+
+# SwiftPM + Xcode
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output/
+
+# App artifacts
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Thumbnails
+*.thumb
+
+# Logs
+*.log
+
+# Temporary
+*.tmp
+*.swp
+*~
+
+# Git keep files
+.gitkeep

@@ -17,9 +17,7 @@ Point your device at the sky to visualize stars, planets, and celestial bodies, 
 
 | Onboarding                                               | AR Camera Mode                                   | Galaxy Panorama Mode                                 |                                 
 | -------------------------------------------------------- | ------------------------------------------------ | ---------------------------------------------------- |
-| ![Screenshot 1](readme_assets/screenshot_onboarding.png) | ![Screenshot 2](readme_assets/screenshot_ar.png) | ![Screenshot 3](readme_assets/screenshot_galaxy.png) |
-
-> screenshots are stored inside `readme_assets/`.
+| <img src="readme_assets/Screenshot1.jpeg" height="600">    | ![Screenshot 2](readme_assets/screenshot_ar.png) | ![Screenshot 3](readme_assets/screenshot_galaxy.png) |
 
 ---
 
@@ -37,7 +35,7 @@ Point your device at the sky to visualize stars, planets, and celestial bodies, 
 * Unlit, immersive rendering for maximum clarity.
 * Ideal for indoor usage or demonstrations.
 
-### 🪐 Celestial Objects
+### Celestial Objects
 
 * Includes planets and stars.
 * Each object has a precise 3D position and a floating, billboarded label.
@@ -131,7 +129,7 @@ Mini Sky Explorer recreates the core feature of these apps:
 
 ---
 
-## 🛣 Future Improvements
+## Future Improvements
 
 * [ ] Real astronomical catalog data.
 * [ ] Tap-to-select stars with info popups.
@@ -152,14 +150,14 @@ Mini Sky Explorer recreates the core feature of these apps:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **MIT License**.
 See the `LICENSE` file for details.
 
 ---
 
-# 📚 Technical Documentation
+# Technical Documentation
 
 ## 1. Overview
 

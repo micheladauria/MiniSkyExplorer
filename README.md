@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://svg-banners.vercel.app/api?type=glitch&text1=%20MiniSkyExplorer%20&width=900&height=250" alt="MiniSkyExplorer Banner"/>
+  <img src="https://svg-banners.vercel.app/api?type=glitch&text1=%20MiniSkyExplorer%20&width=900&height=250" alt="MiniSkyExplorer Banner" width="890"/>
 </p>
 
 

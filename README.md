@@ -1,10 +1,3 @@
-<p align="center">
-  <img src="https://svg-banners.vercel.app/api?type=glitch&text1=%20MiniSkyExplorer%20&width=870&height=200" alt="MiniSkyExplorer Banner"/>
-</p>
-
-
----
-
 # Mini Sky Explorer
 
 **Explore the sky through AR and immersive 360° visuals.**
@@ -15,9 +8,9 @@ Point your device at the sky to visualize stars, planets, and celestial bodies, 
 
 ## 📸 Screenshots
 
-| Onboarding                                               | AR Camera Mode                                   | Galaxy Panorama Mode                                 |                                 
-| -------------------------------------------------------- | ------------------------------------------------ | ---------------------------------------------------- |
-| <img src="readme_assets/Screenshot1.jpeg" height="600">    | ![Screenshot 2](readme_assets/screenshot_ar.png) | ![Screenshot 3](readme_assets/screenshot_galaxy.png) |
+| Onboarding                                               | AR Camera Mode                                           | Galaxy Panorama Mode                                  |                                 
+| -------------------------------------------------------- | -------------------------------------------------------- | ----------------------------------------------------- |
+| <img src="readme_assets/Screenshot1.jpeg" height="600">  | <img src="readme_assets/Screenshot2.PNG" height="600">   | <img src="readme_assets/Screenshot3.PNG" height="600">|
 
 ---
 
